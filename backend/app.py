@@ -6,17 +6,31 @@ Intended to run on port 10000 (configured in the uvicorn entrypoint below).
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
+from pydantic import BaseModel
 import os
+from openai import OpenAI
 
 app = FastAPI()
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+INDEX_FILE = os.path.join(BASE_DIR, "frontend", "index.html")
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+class Prompt(BaseModel):
+    prompt: str
+
 @app.get("/")
 def home():
-    return FileResponse("../frontend/index.html")
+    return FileResponse(INDEX_FILE)
 
-@app.get("/hello")
-def hello():
-    return {"message": "Hello from my first live API"}
+@app.post("/ask")
+def ask_ai(data: Prompt):
+    response = client.responses.create(
+        model="gpt-4.1-mini",
+        input=data.prompt
+    )
+    return {"answer": response.output[0].content[0].text}
 
 
 if __name__ == "__main__":

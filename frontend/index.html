@@ -5,20 +5,29 @@
 </head>
 
 <body style="font-family:sans-serif;text-align:center;margin-top:100px;">
-
-<h1>My First Live System</h1>
-
-<button onclick="callAPI()">Test API</button>
-
-<p id="result"></p>
-
-<script>
-async function callAPI() {
-    const response = await fetch('/hello');
-    const data = await response.json();
-    document.getElementById('result').innerText = data.message;
-}
-</script>
-
-</body>
+    <h1>My First AI Tool</h1>
+    
+    <input id="prompt" placeholder="Ask something..." style="width:300px;padding:8px;">
+    <br><br>
+    
+    <button onclick="callAI()">Ask AI</button>
+    
+    <p id="result"></p>
+    
+    <script>
+    async function callAI() {
+        const text = document.getElementById("prompt").value;
+    
+        const response = await fetch('/ask', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({prompt: text})
+        });
+    
+        const data = await response.json();
+        document.getElementById("result").innerText = data.answer;
+    }
+    </script>
+    </body>
+    
 </html>
