@@ -12,7 +12,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return FileResponse("frontend/index.html")
+    return FileResponse("../frontend/index.html")
 
 @app.get("/hello")
 def hello():
