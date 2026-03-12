@@ -1,44 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World Counter</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1.2rem;
-      background: #0f3d2e;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #c9a24e;
-      color: #000;
-    }
-    h1 {
-      color: #1a1a1a;
-    }
-  </style>
+<title>My First Live System</title>
 </head>
-<body>
-  <h1>Hello World Counter</h1>
-  <p>You’ve clicked <span id="count">0</span> times.</p>
-  <button onclick="increment()">Click Me</button>
 
-  <script>
-    let count = 0;
-    function increment() {
-      count++;
-      document.getElementById("count").textContent = count;
-    }
-  </script>
+<body style="font-family:sans-serif;text-align:center;margin-top:100px;">
+
+<h1>My First Live System</h1>
+
+<button onclick="callAPI()">Test API</button>
+
+<p id="result"></p>
+
+<script>
+async function callAPI() {
+    const response = await fetch('/hello');
+    const data = await response.json();
+    document.getElementById('result').innerText = data.message;
+}
+</script>
+
 </body>
 </html>

@@ -5,15 +5,18 @@ Intended to run on port 10000 (configured in the uvicorn entrypoint below).
 """
 
 from fastapi import FastAPI
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import FileResponse
+import os
 
-app = FastAPI(title="ai-live-system")
+app = FastAPI()
 
+@app.get("/")
+def home():
+    return FileResponse("frontend/index.html")
 
-@app.get("/", response_class=PlainTextResponse, summary="Service liveness")
-async def root() -> str:
-    """Return a plaintext heartbeat to indicate the service is healthy."""
-    return "AI System Live"
+@app.get("/hello")
+def hello():
+    return {"message": "Hello from my first live API"}
 
 
 if __name__ == "__main__":
