@@ -15,7 +15,7 @@ app = FastAPI()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX_FILE = os.path.join(BASE_DIR, "frontend", "index.html")
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv("6e25fbbe5262855092311f27375fd775"))
 
 class Prompt(BaseModel):
     prompt: str
